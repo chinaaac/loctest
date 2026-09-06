@@ -1,0 +1,31 @@
+位置上传改写（Shadowrocket）
+
+1. 打开 location_rewrite.js，修改顶部：
+   TARGET_LATITUDE  = 目标纬度
+   TARGET_LONGITUDE = 目标经度
+   TARGET_RADIUS    = 定位精度，建议 10
+
+2. 将 location_rewrite.js 放到能返回纯文本的 HTTPS 地址，例如自己的 GitHub Gist/仓库。
+
+3. 打开 wo_location.module，把 SCRIPT_URL 替换为上一步 JS 的原始文件直链。
+
+4. 将 wo_location.module 也放到 HTTPS 地址，然后在小火箭：
+   配置 → 模块 → + → 从 URL 添加。
+
+5. 开启 HTTPS 解密，安装并信任小火箭证书，确保模块启用。
+
+6. 测试时打开小火箭日志，应看到：
+   [Location Rewrite] 已改写：https://zl.wohenizaiyiqi.com/...
+
+目前确认会修改的请求包括：
+   /User/uploadlocation
+   /User/updateUserInfo
+   /User/responseLocationWIthUserId
+
+脚本同时兼容同一域名 User/Lbs 路径下以后出现的定位请求；只有 bundleV2
+真实包含 latitude、longitude、oriLat、oriLng、radius 时才会动它。
+
+重要限制：原请求含动态 X-Sign 和 X-TS。脚本先保留签名进行测试。如果服务端
+把正文纳入签名校验，可能出现 HTTP 200 但位置未更新，届时需继续分析签名算法。
+
+安全提醒：此前抓包中的 X-Token 已公开，测试结束后退出并重新登录以更新凭证。

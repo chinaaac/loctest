@@ -1,0 +1,10 @@
+#!name=位置上传改写
+#!desc=改写 zl.wohenizaiyiqi.com 的 bundleV2 定位字段
+#!system=ios
+
+[Script]
+# 把下面的 SCRIPT_URL 替换成 location_rewrite.js 的 HTTPS 原始文件直链
+位置上传改写 = type=http-request,pattern=^https:\/\/zl\.wohenizaiyiqi\.com\/(?:User|Lbs)\/,script-path=SCRIPT_URL,requires-body=true,max-size=0,timeout=10
+
+[MITM]
+hostname = %APPEND% zl.wohenizaiyiqi.com
