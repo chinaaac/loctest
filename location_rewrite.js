@@ -44,6 +44,8 @@ try {
     const replacements = {
       latitude: TARGET_LATITUDE,
       longitude: TARGET_LONGITUDE,
+      lat: TARGET_LATITUDE,
+      lng: TARGET_LONGITUDE,
       oriLat: TARGET_LATITUDE,
       oriLng: TARGET_LONGITUDE,
       radius: TARGET_RADIUS
@@ -60,8 +62,14 @@ try {
   });
 
   if (changed) {
+    const newBody = buildForm(items);
+    const headers = Object.assign({}, $request.headers || {});
+    // 正文长度变化后必须同步更新，否则服务器可能直接断开连接。
+    delete headers["content-length"];
+    headers["Content-Length"] = String(newBody.length);
     console.log("[Location Rewrite] 已改写：" + $request.url);
-    $done({ body: buildForm(items) });
+    console.log("[Location Rewrite] 新正文长度：" + newBody.length);
+    $done({ headers: headers, body: newBody });
   } else {
     $done({});
   }
