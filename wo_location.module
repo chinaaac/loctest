@@ -3,7 +3,7 @@
 #!system=ios
 
 [Script]
-位置上传改写 = type=http-request,pattern=^https:\/\/zl\.wohenizaiyiqi\.com\/(?:User|Lbs)\/,script-path=https://raw.githubusercontent.com/chinaaac/loctest/refs/heads/main/location_rewrite.js,requires-body=true,max-size=0,timeout=10
+位置上传改写 = type=http-request,pattern=^https:\/\/zl\.wohenizaiyiqi\.com\/(?:User|Lbs)\/,script-path=https://raw.githubusercontent.com/chinaaac/loctest/refs/heads/main/location_rewrite.js?v=2,requires-body=true,max-size=0,timeout=10
 
 [MITM]
 hostname = %APPEND% zl.wohenizaiyiqi.com
