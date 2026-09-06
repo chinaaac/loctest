@@ -3,8 +3,7 @@
 #!system=ios
 
 [Script]
-# 把下面的 SCRIPT_URL 替换成 location_rewrite.js 的 HTTPS 原始文件直链
-位置上传改写 = type=http-request,pattern=^https:\/\/zl\.wohenizaiyiqi\.com\/(?:User|Lbs)\/,script-path=SCRIPT_URL,requires-body=true,max-size=0,timeout=10
+位置上传改写 = type=http-request,pattern=^https:\/\/zl\.wohenizaiyiqi\.com\/(?:User|Lbs)\/,script-path=https://raw.githubusercontent.com/chinaaac/loctest/refs/heads/main/location_rewrite.js,requires-body=true,max-size=0,timeout=10
 
 [MITM]
 hostname = %APPEND% zl.wohenizaiyiqi.com
